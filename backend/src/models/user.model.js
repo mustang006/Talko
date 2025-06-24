@@ -1,31 +1,32 @@
- import mongoose from "mongoose";
+import mongoose from "mongoose";
 
- const userSchema = new mongoose.Schema(
-    {
-        email:{
-            type:String,
-            required:true,
-            unique:true
-        },
-        fullName:{
-            type:String,
-            required:true,
-        },
-        password:{
-            type:String,
-            required:true,
-            minlength:6
-        },
-        profilePic:{
-            type:String,
-            default:"https://avatar.iran.liara.run/public/35"
-        },
+const userSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
     },
-    {
-        timestamps:true
-    }
- );
+    fullName: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 6,
+    },
+    profilePic: {
+      type: String,
+      default: () =>
+        `https://api.dicebear.com/7.x/bottts/svg?seed=${Math.floor(Math.random() * 1000000)}`,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
- const User = mongoose.model("User",userSchema);
+const User = mongoose.model("User", userSchema);
 
- export default User;
+export default User;

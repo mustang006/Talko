@@ -1,19 +1,18 @@
+// db.js
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
-dotenv.config(); // Ensure dotenv is loaded
+dotenv.config();
 
-const MONGO_URI = "mongodb+srv://test-1:MEobwOeAUlNGw7zD@cluster0.00teq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-const mongoose =require('mongoose');
-async function ConnectMongo(){
-    try {
-        await mongoose.connect("mongodb+srv://test-1:MEobwOeAUlNGw7zD@cluster0.00teq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-        console.log('connected to mongodb');
-        
-    } catch (error) {
-        console.log(error);
-        process.exit(1)
-        
-    }
+export async function ConnectMongo() {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("✅ Connected to MongoDB");
+  } catch (error) {
+    console.error("❌ MongoDB connection failed:", error);
+    process.exit(1);
+  }
 }
-module.exports = ConnectMongo
